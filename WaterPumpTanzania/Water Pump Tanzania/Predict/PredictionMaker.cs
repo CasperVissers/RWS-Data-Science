@@ -46,12 +46,13 @@ namespace Water_Pump_Tanzania.Predict
             return null;
         }
 
-        private static void MakePredictionInTheFuture(PumpMaintenanceModel.ModelInput inputModel, int years = 15)
+        private static void MakePredictionInTheFuture(PumpMaintenanceModel.ModelInput inputModel, int years = 10)
         {
             for (int y = 0, cY = 2024; y < years; y++, cY++)
             {
                 inputModel.Construction_year--;
                 inputModel.Amount_tsh *= 0.9f;
+                inputModel.Population *= 1.01f;
 
                 var result = PumpMaintenanceModel.Predict(inputModel);
                 DisplayPrediction(cY, result.Score);

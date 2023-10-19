@@ -86,7 +86,7 @@ namespace Water_Pump_Tanzania.Data_Reader
         /// <returns>True if one or more values are zero.</returns>
         public static bool HasZeroData(IWaterPumpLabels labels)
         {
-            if (labels.AmountTsh == 0) return true;
+            //if (labels.AmountTsh == 0) return true;
             if (labels.GpsHeight == 0) return true;
             //if (labels.Longitude == 0) return true;
             //if (labels.Latitude == 0) return true;
