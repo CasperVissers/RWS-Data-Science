@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Water_Pump_Tanzania.Interfaces
 {
-    internal interface IWaterPumpId
+    public interface IWaterPumpId
     {
         /// <summary>
         /// Identifier of the waterpoint

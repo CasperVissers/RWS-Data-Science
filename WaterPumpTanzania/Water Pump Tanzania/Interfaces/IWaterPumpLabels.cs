@@ -1,6 +1,6 @@
 ﻿namespace Water_Pump_Tanzania.Interfaces
 {
-    internal interface IWaterPumpLabels : IWaterPumpId
+    public interface IWaterPumpLabels : IWaterPumpId
     {
         /// <summary>
         /// Total static head (amount water available to waterpoint)
@@ -81,7 +81,7 @@
         /// Population around the well
         /// </summary>
         public int Population { get; set; }
-        public string? PublicMeeting { get; set; }
+        public bool PublicMeeting { get; set; }
         
         /// <summary>
         /// Group entering this row of data
@@ -101,7 +101,7 @@
         /// <summary>
         /// If the waterpoint is permitted
         /// </summary>
-        public bool? Permit { get; set; }
+        public bool Permit { get; set; }
         
         /// <summary>
         /// Year the waterpoint was constructed

@@ -1,6 +1,6 @@
 ﻿namespace Water_Pump_Tanzania.Interfaces
 {
-    internal interface IWaterPumpSet : IWaterPumpId
+    public interface IWaterPumpSet : IWaterPumpId
     {
         /// <summary>
         /// Whether the waterpump is functional

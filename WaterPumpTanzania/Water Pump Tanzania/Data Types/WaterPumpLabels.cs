@@ -66,7 +66,12 @@ namespace Water_Pump_Tanzania
         public int Population { get; set; }
 
         [Name("public_meeting")]
-        public string? PublicMeeting { get; set; }
+        public bool? PublicMeetingSetter
+        {
+            set { if (value != null) PublicMeeting = (bool)value; }
+        }
+        [Ignore]
+        public bool PublicMeeting { get; set; }
 
         [Name("recorded_by")]
         public string? RecordedBy { get; set; }
@@ -78,7 +83,12 @@ namespace Water_Pump_Tanzania
         public string? SchemeName { get; set; }
 
         [Name("permit")]
-        public bool? Permit { get; set; }
+        public bool? PermitSetter
+        {
+            set { if (value != null) Permit = (bool)value; }
+        }
+        [Ignore]
+        public bool Permit { get; set; }
 
         [Name("construction_year")]
         public int ConstructionYear { get; set; }
