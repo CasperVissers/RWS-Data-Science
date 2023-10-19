@@ -15,35 +15,29 @@ namespace Water_Pump_Tanzania.Programs
         {
             Console.WriteLine("Starting prediction program...");
 
-            //Load sample data
-            var sampleData = new PumpMaintenanceModel.ModelInput()
-            {
-                Amount_tsh = 25F,
-                Gps_height = 686F,
-                Basin = Basin.Rufiji.ToString(),
-                Population = 250F,
-                Public_meeting = true,
-                Permit = true,
-                Construction_year = 2009F,
-                Extraction_type_class = @"Gravity",
-                Management_group = @"UserGroup",
-                Water_quality = @"Soft",
-                Quantity_group = @"Enough",
-                Source_type = @"Dam",
-                Waterpoint_type_group = @"CommunalStandpipe",
-            };
-
-            //Load model and predict output
-            var result = PumpMaintenanceModel.Predict(sampleData);
-
-
-            var status = PredictHelper.GetStatusLabels();
-
-
+            MakePrediction();
 
             Console.WriteLine("Finished prediction program!");
         }
 
+        private static void MakePrediction()
+        {
+            Console.WriteLine("Enter waterpump ID to predict.");
+            var input = Console.ReadLine();
+            if (int.TryParse(input, out var id))
+            {
+                try
+                {
+                    PredictionMaker.PredictFailure(id);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    Console.WriteLine(ex);
+                    MakePrediction();
+                }
+            }
+            
+        }
 
     }
 }

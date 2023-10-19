@@ -1,12 +1,13 @@
 ﻿using CsvHelper.Configuration.Attributes;
 using System.Reflection;
+using Water_Pump_Tanzania.Data_Reader;
 using Water_Pump_Tanzania.Interfaces;
 
 namespace Water_Pump_Tanzania
 {
     internal class WaterPump : IWaterPumpLabels, IWaterPumpSet
     {
-        public WaterPump(IWaterPumpLabels waterPumpLabels, List<WaterPumpSet> waterPumpSets)
+        public WaterPump(IWaterPumpLabels waterPumpLabels)
         {
             // Copy properties
             foreach (PropertyInfo property in typeof(IWaterPumpLabels).GetProperties().Where(p => p.CanWrite))
@@ -17,11 +18,7 @@ namespace Water_Pump_Tanzania
             {
                 property.SetValue(this, property.GetValue(waterPumpLabels, null), null);
             }
-            var waterPumpSet = waterPumpSets.Where(pump => pump.Id == waterPumpLabels.Id).FirstOrDefault();
-            if (waterPumpSet != null)
-            {
-                StatusGroup = waterPumpSet.StatusGroup;
-            }
+            StatusGroup = WaterPumpCsv.GetWaterPumpStatus(Id);
         }
 
         [Name("id")]

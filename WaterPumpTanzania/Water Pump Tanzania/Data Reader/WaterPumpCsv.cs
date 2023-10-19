@@ -15,10 +15,19 @@ namespace Water_Pump_Tanzania.Data_Reader
         const string WATER_PUMP_SET_PATH = "C:\\Users\\Caspe\\Csharp\\RWS\\Data Science Assignment\\WaterPumpTanzania\\Water Pump Tanzania\\_files\\data_scientist\\water_pump_set.csv";
         const string WATER_PUMP_PATH = "C:\\Users\\Caspe\\Csharp\\RWS\\Data Science Assignment\\WaterPumpTanzania\\Water Pump Tanzania\\_files\\data_scientist\\water_pump.csv";
 
+        private static List<WaterPumpSet> WaterPumpSets
+        {
+            get
+            {
+                _waterPummpSets ??= DataReader.ReadCsvToList<WaterPumpSet>(WATER_PUMP_SET_PATH);
+                return _waterPummpSets;
+            }
+        }
+        private static List<WaterPumpSet> _waterPummpSets;
+
+
         public static void CreateCombinedCsv()
         {
-            var waterPumpSets = DataReader.ReadCsvToList<WaterPumpSet>(WATER_PUMP_SET_PATH);
-
             // Create reader objects
             using var reader = new StreamReader(WATER_PUMP_LABELS_PATH);
             using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
@@ -41,7 +50,7 @@ namespace Water_Pump_Tanzania.Data_Reader
                 if (HasNullOrEmptyStringData(r)) continue;
 
                 csvWriter.NextRecord();
-                csvWriter.WriteRecord(new WaterPump(r, waterPumpSets));
+                csvWriter.WriteRecord(new WaterPump(r));
             }
         }
 
@@ -103,6 +112,39 @@ namespace Water_Pump_Tanzania.Data_Reader
             //if (string.IsNullOrEmpty(labels.SchemeManagement)) return true;
             //if (string.IsNullOrEmpty(labels.SchemeName)) return true;
             return false;
+        }
+
+        /// <summary>
+        /// Get a waterpump label based on the provided id.
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">When no waterpump with the given id is found.</exception>
+        public static WaterPumpLabels GetWaterPumpLabelById(int id)
+        {
+            // Create reader objects
+            using var reader = new StreamReader(WATER_PUMP_LABELS_PATH);
+            using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
+
+            // Read CSV file
+            var records = csvReader.GetRecords<WaterPumpLabels>();
+
+            // Search for id.
+            foreach(var r in records)
+            {
+                if (r.Id == id) return r;
+            }
+
+            throw new KeyNotFoundException($"Waterpump with ID {id} cannot be found!");
+        }
+
+        /// <summary>
+        /// Gets the current state of a waterpump.
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">When no waterpump with the given id is found.</exception>
+        public static Status GetWaterPumpStatus(int id)
+        {
+            var waterPump = WaterPumpSets.Where(pump => pump.Id == id).FirstOrDefault();
+            if (waterPump != null) return waterPump.StatusGroup;
+            throw new KeyNotFoundException($"Waterpump with ID {id} cannot be found!");
         }
     }
 }
