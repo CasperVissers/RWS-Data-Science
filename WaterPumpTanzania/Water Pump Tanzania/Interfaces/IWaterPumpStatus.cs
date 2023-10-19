@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Water_Pump_Tanzania.Interfaces
 {
-    internal interface IWaterPumpStatus
+    internal interface IWaterPumpStatus : IWaterPumpId
     {
-        /// <summary>
-        /// Identifier of the waterpoint
-        /// </summary>
-        public int Id { get; set; }
         /// <summary>
         /// Whether the waterpump is functional
         /// </summary>
