@@ -2,7 +2,7 @@
 
 namespace Water_Pump_Tanzania
 {
-    internal class WaterPumpStatus : Interfaces.IWaterPumpStatus
+    internal class WaterPumpSet : Interfaces.IWaterPumpSet
     {
         [Name("id")]
         public int Id { get; set; }

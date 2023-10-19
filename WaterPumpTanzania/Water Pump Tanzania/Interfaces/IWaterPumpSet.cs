@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Water_Pump_Tanzania.Interfaces
 {
-    internal interface IWaterPumpStatus : IWaterPumpId
+    internal interface IWaterPumpSet : IWaterPumpId
     {
         /// <summary>
         /// Whether the waterpump is functional
