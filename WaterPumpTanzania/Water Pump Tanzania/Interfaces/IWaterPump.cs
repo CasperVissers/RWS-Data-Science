@@ -73,7 +73,7 @@ namespace Water_Pump_Tanzania.Interfaces
         /// Population around the well
         /// </summary>
         public int Population { get; set; }
-        public bool PublicMeeting { get; set; }
+        public string? PublicMeeting { get; set; }
         /// <summary>
         /// Group entering this row of data
         /// </summary>

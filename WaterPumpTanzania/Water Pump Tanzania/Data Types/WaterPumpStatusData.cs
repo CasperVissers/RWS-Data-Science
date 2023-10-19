@@ -22,7 +22,7 @@ namespace Water_Pump_Tanzania
         public string? Lga { get; set; }
         public string? Ward { get; set; }
         public int Population { get; set; }
-        public bool PublicMeeting { get; set; }
+        public string? PublicMeeting { get; set; }
         public string? RecordedBy { get; set; }
         public string? SchemeManagement { get; set; }
         public string? SchemeName { get; set; }
