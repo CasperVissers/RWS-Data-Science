@@ -105,6 +105,6 @@ namespace Water_Pump_Tanzania
         [Name("waterpoint_type_group")]
         public Waterpoint WaterpointTypeGroup { get; set; }
         [Name("status_group")]
-        public string? StatusGroup { get; set; }
+        public Status StatusGroup { get; set; }
     }
 }
