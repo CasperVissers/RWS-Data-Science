@@ -38,6 +38,7 @@ namespace Water_Pump_Tanzania.Data_Reader
             {
                 if (HasUnknownData(r)) continue;
                 if (HasZeroData(r)) continue;
+                if (HasNullOrEmptyStringData(r)) continue;
 
                 csvWriter.NextRecord();
                 csvWriter.WriteRecord(new WaterPump(r, waterPumpSets));
@@ -82,6 +83,25 @@ namespace Water_Pump_Tanzania.Data_Reader
             if (labels.Latitude == 0) return true;
             if (labels.Population == 0) return true;
             if (labels.ConstructionYear == 0) return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Checks wheter one of the string fields is null or empty.
+        /// </summary>
+        /// <returns>True if one or more fields are null or zero</returns>
+        public static bool HasNullOrEmptyStringData(IWaterPumpLabels labels)
+        {
+            if (string.IsNullOrEmpty(labels.Funder)) return true;
+            if (string.IsNullOrEmpty(labels.Installer)) return true;
+            if (string.IsNullOrEmpty(labels.WptName)) return true;
+            if (string.IsNullOrEmpty(labels.Subvillage)) return true;
+            if (string.IsNullOrEmpty(labels.Region)) return true;
+            if (string.IsNullOrEmpty(labels.Lga)) return true;
+            if (string.IsNullOrEmpty(labels.Ward)) return true;
+            if (string.IsNullOrEmpty(labels.RecordedBy)) return true;
+            if (string.IsNullOrEmpty(labels.SchemeManagement)) return true;
+            if (string.IsNullOrEmpty(labels.SchemeName)) return true;
             return false;
         }
     }
