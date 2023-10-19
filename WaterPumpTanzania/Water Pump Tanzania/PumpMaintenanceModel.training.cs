@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ML.Data;
-using Microsoft.ML.Trainers.LightGbm;
+using Microsoft.ML.Trainers.FastTree;
 using Microsoft.ML.Trainers;
 using Microsoft.ML.Transforms;
 using Microsoft.ML;
@@ -42,7 +42,7 @@ namespace Water_Pump_Tanzania
                                     .Append(mlContext.Transforms.Conversion.ConvertType(@"date_recorded", @"date_recorded"))      
                                     .Append(mlContext.Transforms.Concatenate(@"Features", new []{@"installer",@"scheme_management",@"extraction_type",@"extraction_type_class",@"management",@"management_group",@"quality_group",@"quantity_group",@"source_type",@"source_class",@"waterpoint_type",@"amount_tsh",@"gps_height",@"longitude",@"latitude",@"region_code",@"district_code",@"population",@"construction_year",@"public_meeting",@"permit",@"date_recorded"}))      
                                     .Append(mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"status_group",inputColumnName:@"status_group"))      
-                                    .Append(mlContext.MulticlassClassification.Trainers.LightGbm(new LightGbmMulticlassTrainer.Options(){NumberOfLeaves=6,NumberOfIterations=57,MinimumExampleCountPerLeaf=31,LearningRate=0.999999776672986,LabelColumnName=@"status_group",FeatureColumnName=@"Features",ExampleWeightColumnName=null,Booster=new GradientBooster.Options(){SubsampleFraction=0.00142289302200839,FeatureFraction=0.929015216042686,L1Regularization=2.88283340450437E-10,L2Regularization=0.999999776672986},MaximumBinCountPerFeature=184}))      
+                                    .Append(mlContext.MulticlassClassification.Trainers.OneVersusAll(binaryEstimator:mlContext.BinaryClassification.Trainers.FastTree(new FastTreeBinaryTrainer.Options(){NumberOfLeaves=15,MinimumExampleCountPerLeaf=10,NumberOfTrees=220,MaximumBinCountPerFeature=1022,FeatureFraction=0.99999999,LearningRate=0.334819670316175,LabelColumnName=@"status_group",FeatureColumnName=@"Features"}),labelColumnName: @"status_group"))      
                                     .Append(mlContext.Transforms.Conversion.MapKeyToValue(outputColumnName:@"PredictedLabel",inputColumnName:@"PredictedLabel"));
 
             return pipeline;
