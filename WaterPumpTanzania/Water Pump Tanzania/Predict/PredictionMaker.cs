@@ -13,13 +13,13 @@ namespace Water_Pump_Tanzania.Predict
         /// <summary>
         /// Predict a failure for a given waterpump.
         /// </summary>
-        public static void PredictFailure(int waterpumpId)
+        public static void PredictFailure(int waterpumpId, int yearsToPredict = 10, float populationGrowth = 1.01f, float staticHeadGrowth = 0.9f)
         {
             switch (WaterPumpCsv.GetWaterPumpStatus(waterpumpId))
             {
                 case Status.Functional:
                     Console.WriteLine($"Waterpump {waterpumpId} is functional at this moment. Predicting when maintenance is required.");
-                    MakePredictionInTheFuture(PredictHelper.MapToInputModel(GetWaterpump(waterpumpId)));
+                    MakePredictionInTheFuture(PredictHelper.MapToInputModel(GetWaterpump(waterpumpId)), yearsToPredict, populationGrowth, staticHeadGrowth);
                     return;
                 case Status.NonFunctional:
                     Console.WriteLine($"Waterpump {waterpumpId} is not functional at this moment.");
@@ -46,19 +46,25 @@ namespace Water_Pump_Tanzania.Predict
             return null;
         }
 
-        private static void MakePredictionInTheFuture(PumpMaintenanceModel.ModelInput inputModel, int years = 10)
+        /// <summary>
+        /// Make preduction for the failure rates in the future.
+        /// </summary>
+        private static void MakePredictionInTheFuture(PumpMaintenanceModel.ModelInput inputModel, int yearsToPredict, float populationGrowth, float staticHeadGrowth)
         {
-            for (int y = 0, cY = 2024; y < years; y++, cY++)
+            for (int y = 0, cY = 2024; y <= yearsToPredict; y++, cY++)
             {
-                inputModel.Construction_year--;
-                inputModel.Amount_tsh *= 0.9f;
-                inputModel.Population *= 1.01f;
-
                 var result = PumpMaintenanceModel.Predict(inputModel);
                 DisplayPrediction(cY, result.Score);
+
+                inputModel.Construction_year--;
+                inputModel.Amount_tsh *= staticHeadGrowth;
+                inputModel.Population *= populationGrowth;
             }
         }
 
+        /// <summary>
+        /// Display the results to the console.
+        /// </summary>
         private static void DisplayPrediction(int year, float[] Scores)
         {
             Console.WriteLine($"Prediction for year {year}:");
