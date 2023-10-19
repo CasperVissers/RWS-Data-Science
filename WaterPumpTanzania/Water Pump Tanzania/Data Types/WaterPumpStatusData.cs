@@ -1,9 +1,24 @@
-﻿using Water_Pump_Tanzania.Interfaces;
+﻿using System.Reflection;
+using Water_Pump_Tanzania.Interfaces;
 
 namespace Water_Pump_Tanzania
 {
     internal class WaterPumpStatusData : IWaterPump, IWaterPumpStatus
     {
+        public WaterPumpStatusData(IWaterPump waterPumpLabels, IList<IWaterPumpStatus> waterPumpSets)
+        {
+            // Copy properties
+            foreach (PropertyInfo property in typeof(IWaterPump).GetProperties())
+            {
+                property.SetValue(this, property.GetValue(waterPumpLabels, null), null);
+            }
+            var waterPumpSet = waterPumpSets.Where(pump => pump.Id == waterPumpLabels.Id).FirstOrDefault();
+            if (waterPumpSet != null)
+            {
+                StatusGroup = waterPumpSet.StatusGroup;
+            }
+        }
+
         public int Id { get; set; }
         public double AmountTsh { get; set; }
         public DateTime DateRecorded { get; set; }
