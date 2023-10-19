@@ -13,11 +13,13 @@ namespace Water_Pump_Tanzania.Programs
     {
         public static void Run()
         {
+            Console.Clear();
             Console.WriteLine("Starting prediction program...");
 
             MakePrediction();
 
-            Console.WriteLine("Finished prediction program!");
+            Console.WriteLine("Finished prediction program! Press enter to continue.");
+            Console.ReadLine();
         }
 
         private static void MakePrediction()
