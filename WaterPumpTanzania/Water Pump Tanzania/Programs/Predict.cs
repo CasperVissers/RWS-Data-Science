@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.ML.Data;
+using Microsoft.ML;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Water_Pump_Tanzania.Predict;
 
 namespace Water_Pump_Tanzania.Programs
 {
@@ -31,10 +34,16 @@ namespace Water_Pump_Tanzania.Programs
             };
 
             //Load model and predict output
-            var result = PumpMaintenanceModel.Predict(sampleData).PredictedLabel;
+            var result = PumpMaintenanceModel.Predict(sampleData);
+
+
+            var status = PredictHelper.GetStatusLabels();
+
 
 
             Console.WriteLine("Finished prediction program!");
         }
+
+
     }
 }

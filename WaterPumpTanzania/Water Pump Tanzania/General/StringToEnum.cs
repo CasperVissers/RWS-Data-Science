@@ -10,7 +10,7 @@
                 "non functional" => Status.NonFunctional,
                 "functional needs repair" => Status.NeedsRepair,
                 _ => throw new ArgumentOutOfRangeException($"{value} is an unkown enum value of Status."),
-            };
+            }; ;
         }
 
         public static Waterpoint ToWaterpoint(string? value)
