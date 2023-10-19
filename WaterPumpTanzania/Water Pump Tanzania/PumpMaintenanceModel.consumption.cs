@@ -242,10 +242,10 @@ namespace Water_Pump_Tanzania
             public string Payment_type { get; set; }
 
             [ColumnName(@"water_quality")]
-            public string Water_quality { get; set; }
+            public float[] Water_quality { get; set; }
 
             [ColumnName(@"quality_group")]
-            public float[] Quality_group { get; set; }
+            public string Quality_group { get; set; }
 
             [ColumnName(@"quantity")]
             public string Quantity { get; set; }
@@ -257,10 +257,10 @@ namespace Water_Pump_Tanzania
             public string Source { get; set; }
 
             [ColumnName(@"source_type")]
-            public string Source_type { get; set; }
+            public float[] Source_type { get; set; }
 
             [ColumnName(@"source_class")]
-            public float[] Source_class { get; set; }
+            public string Source_class { get; set; }
 
             [ColumnName(@"waterpoint_type")]
             public string Waterpoint_type { get; set; }

@@ -52,21 +52,21 @@ namespace Water_Pump_Tanzania.Data_Reader
         public static bool HasUnknownData(IWaterPumpLabels labels)
         {
             if (labels.Basin == Basin.Unknown) return true;
-            if (labels.ExtractionType == Extraction.Unknown) return true;
-            if (labels.ExtractionTypeGroup == Extraction.Unknown) return true;
+            //if (labels.ExtractionType == Extraction.Unknown) return true;
+            //if (labels.ExtractionTypeGroup == Extraction.Unknown) return true;
             if (labels.ExtractionTypeClass == Extraction.Unknown) return true;
-            if (labels.Management == Management.Unknown) return true;
+            //if (labels.Management == Management.Unknown) return true;
             if (labels.ManagementGroup == ManagementGroup.Unknown) return true;
-            if (labels.Payment == Payment.Unknown) return true;
-            if (labels.PaymentType == PaymentType.Unknown) return true;
+            //if (labels.Payment == Payment.Unknown) return true;
+            //if (labels.PaymentType == PaymentType.Unknown) return true;
             if (labels.WaterQuality == WaterQuality.Unknown) return true;
-            if (labels.QualityGroup == Quality.Unknown) return true;
-            if (labels.Quantity == Quantity.Unknown) return true;
+            //if (labels.QualityGroup == Quality.Unknown) return true;
+            //if (labels.Quantity == Quantity.Unknown) return true;
             if (labels.QuantityGroup == Quantity.Unknown) return true;
-            if (labels.Source == Source.Unknown) return true;
-            if (labels.SourceClass == SourceClass.Unknown) return true;
+            //if (labels.Source == Source.Unknown) return true;
+            //if (labels.SourceClass == SourceClass.Unknown) return true;
             if (labels.SourceType == Source.Unknown) return true;
-            if (labels.WaterpointType == Waterpoint.Unknown) return true;
+            //if (labels.WaterpointType == Waterpoint.Unknown) return true;
             if (labels.WaterpointTypeGroup == Waterpoint.Unknown) return true;
             return false;
         }
@@ -79,8 +79,8 @@ namespace Water_Pump_Tanzania.Data_Reader
         {
             if (labels.AmountTsh == 0) return true;
             if (labels.GpsHeight == 0) return true;
-            if (labels.Longitude == 0) return true;
-            if (labels.Latitude == 0) return true;
+            //if (labels.Longitude == 0) return true;
+            //if (labels.Latitude == 0) return true;
             if (labels.Population == 0) return true;
             if (labels.ConstructionYear == 0) return true;
             return false;
@@ -92,16 +92,16 @@ namespace Water_Pump_Tanzania.Data_Reader
         /// <returns>True if one or more fields are null or zero</returns>
         public static bool HasNullOrEmptyStringData(IWaterPumpLabels labels)
         {
-            if (string.IsNullOrEmpty(labels.Funder)) return true;
-            if (string.IsNullOrEmpty(labels.Installer)) return true;
-            if (string.IsNullOrEmpty(labels.WptName)) return true;
-            if (string.IsNullOrEmpty(labels.Subvillage)) return true;
-            if (string.IsNullOrEmpty(labels.Region)) return true;
-            if (string.IsNullOrEmpty(labels.Lga)) return true;
-            if (string.IsNullOrEmpty(labels.Ward)) return true;
-            if (string.IsNullOrEmpty(labels.RecordedBy)) return true;
-            if (string.IsNullOrEmpty(labels.SchemeManagement)) return true;
-            if (string.IsNullOrEmpty(labels.SchemeName)) return true;
+            //if (string.IsNullOrEmpty(labels.Funder)) return true;
+            //if (string.IsNullOrEmpty(labels.Installer)) return true;
+            //if (string.IsNullOrEmpty(labels.WptName)) return true;
+            //if (string.IsNullOrEmpty(labels.Subvillage)) return true;
+            //if (string.IsNullOrEmpty(labels.Region)) return true;
+            //if (string.IsNullOrEmpty(labels.Lga)) return true;
+            //if (string.IsNullOrEmpty(labels.Ward)) return true;
+            //if (string.IsNullOrEmpty(labels.RecordedBy)) return true;
+            //if (string.IsNullOrEmpty(labels.SchemeManagement)) return true;
+            //if (string.IsNullOrEmpty(labels.SchemeName)) return true;
             return false;
         }
     }
