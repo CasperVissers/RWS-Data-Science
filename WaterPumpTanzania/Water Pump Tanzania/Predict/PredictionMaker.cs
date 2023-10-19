@@ -19,7 +19,8 @@ namespace Water_Pump_Tanzania.Predict
             {
                 case Status.Functional:
                     Console.WriteLine($"Waterpump {waterpumpId} is functional at this moment. Predicting when maintenance is required.");
-                    break;
+                    MakePredictionInTheFuture(PredictHelper.MapToInputModel(GetWaterpump(waterpumpId)));
+                    return;
                 case Status.NonFunctional:
                     Console.WriteLine($"Waterpump {waterpumpId} is not functional at this moment.");
                     return;
@@ -27,10 +28,6 @@ namespace Water_Pump_Tanzania.Predict
                     Console.WriteLine($"Waterpump {waterpumpId} needs repair at this moment.");
                     return;
             }
-
-            // Create an input model.
-            var inputModel = PredictHelper.MapToInputModel(GetWaterpump(waterpumpId));
-
         }
 
         /// <summary>
@@ -47,6 +44,27 @@ namespace Water_Pump_Tanzania.Predict
                 Console.WriteLine($"Waterpump with ID {waterpumpId} is unknown.");
             }
             return null;
+        }
+
+        private static void MakePredictionInTheFuture(PumpMaintenanceModel.ModelInput inputModel, int years = 15)
+        {
+            for (int y = 0, cY = 2024; y < years; y++, cY++)
+            {
+                inputModel.Construction_year--;
+                inputModel.Amount_tsh *= 0.9f;
+
+                var result = PumpMaintenanceModel.Predict(inputModel);
+                DisplayPrediction(cY, result.Score);
+            }
+        }
+
+        private static void DisplayPrediction(int year, float[] Scores)
+        {
+            Console.WriteLine($"Prediction for year {year}:");
+            Console.WriteLine($"{PredictHelper.Labels[0],-15}{Scores[0]:F2}");
+            Console.WriteLine($"{PredictHelper.Labels[1],-15}{Scores[1]:F2}");
+            Console.WriteLine($"{PredictHelper.Labels[2],-15}{Scores[2]:F2}");
+            Console.WriteLine();
         }
     }
 }

@@ -10,6 +10,17 @@ namespace Water_Pump_Tanzania.Predict
 {
     public static class PredictHelper
     {
+        public static Status[] Labels
+        {
+            get
+            {
+                if (_labels == null) _labels = GetStatusLabels();
+                return _labels;
+            }
+        }
+        private static Status[] _labels;
+
+
         /// <summary>
         /// Get the label names of the prediction model.
         /// </summary>
@@ -23,7 +34,7 @@ namespace Water_Pump_Tanzania.Predict
         /// <summary>
         /// Get the status labels of the prediction model.
         /// </summary>
-        public static Status[] GetStatusLabels()
+        private static Status[] GetStatusLabels()
         {
             string[] labels = GetLabels();
             Status[] statusLabels = new Status[labels.Length];
