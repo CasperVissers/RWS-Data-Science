@@ -13,7 +13,7 @@ namespace Water_Pump_Tanzania
         NeedsRepair,
     }
 
-    public enum WaterpointType
+    public enum Waterpoint
     {
         CommunalStandpipe,
         HandPump,
@@ -41,8 +41,8 @@ namespace Water_Pump_Tanzania
         ShallowWell,
         RiverOrLake,
         River,
-        LandDtw,
         Lake,
+        HandDtw,
         Other,
         Unknown,
     }
@@ -72,7 +72,7 @@ namespace Water_Pump_Tanzania
         Salty,
         Milky,
         Fluoride,
-        coloured,
+        Coloured,
         SaltyAbandoned,
         FluorideAbandoned,
         Unknown,
@@ -139,6 +139,7 @@ namespace Water_Pump_Tanzania
         KSB,
         Mono,
         Windmill,
+        WindPowered,
         Afridev,
         RopePump,
         PlayPump,
