@@ -155,7 +155,7 @@ namespace Water_Pump_Tanzania
             public float Amount_tsh { get; set; }
 
             [ColumnName(@"date_recorded")]
-            public float Date_recorded { get; set; }
+            public DateTime Date_recorded { get; set; }
 
             [ColumnName(@"funder")]
             public string Funder { get; set; }
@@ -164,7 +164,7 @@ namespace Water_Pump_Tanzania
             public float Gps_height { get; set; }
 
             [ColumnName(@"installer")]
-            public float[] Installer { get; set; }
+            public string Installer { get; set; }
 
             [ColumnName(@"longitude")]
             public float Longitude { get; set; }
@@ -179,7 +179,7 @@ namespace Water_Pump_Tanzania
             public float Num_private { get; set; }
 
             [ColumnName(@"basin")]
-            public string Basin { get; set; }
+            public float[] Basin { get; set; }
 
             [ColumnName(@"subvillage")]
             public string Subvillage { get; set; }
@@ -209,7 +209,7 @@ namespace Water_Pump_Tanzania
             public string Recorded_by { get; set; }
 
             [ColumnName(@"scheme_management")]
-            public float[] Scheme_management { get; set; }
+            public string Scheme_management { get; set; }
 
             [ColumnName(@"scheme_name")]
             public string Scheme_name { get; set; }
@@ -221,7 +221,7 @@ namespace Water_Pump_Tanzania
             public float Construction_year { get; set; }
 
             [ColumnName(@"extraction_type")]
-            public float[] Extraction_type { get; set; }
+            public string Extraction_type { get; set; }
 
             [ColumnName(@"extraction_type_group")]
             public string Extraction_type_group { get; set; }
@@ -230,7 +230,7 @@ namespace Water_Pump_Tanzania
             public float[] Extraction_type_class { get; set; }
 
             [ColumnName(@"management")]
-            public float[] Management { get; set; }
+            public string Management { get; set; }
 
             [ColumnName(@"management_group")]
             public float[] Management_group { get; set; }
@@ -257,16 +257,16 @@ namespace Water_Pump_Tanzania
             public string Source { get; set; }
 
             [ColumnName(@"source_type")]
-            public float[] Source_type { get; set; }
+            public string Source_type { get; set; }
 
             [ColumnName(@"source_class")]
             public float[] Source_class { get; set; }
 
             [ColumnName(@"waterpoint_type")]
-            public float[] Waterpoint_type { get; set; }
+            public string Waterpoint_type { get; set; }
 
             [ColumnName(@"waterpoint_type_group")]
-            public string Waterpoint_type_group { get; set; }
+            public float[] Waterpoint_type_group { get; set; }
 
             [ColumnName(@"status_group")]
             public uint Status_group { get; set; }
