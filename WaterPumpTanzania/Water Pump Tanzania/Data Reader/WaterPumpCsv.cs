@@ -32,7 +32,7 @@ namespace Water_Pump_Tanzania.Data_Reader
                 WaterPumpStatusData waterPumpCombined = new(r, waterPumpSets);
 
 
-                Console.WriteLine($"{r.Id,-15}{r.PublicMeeting,-10}");
+                Console.WriteLine($"{waterPumpCombined.Id,-15}{waterPumpCombined.StatusGroup,-10}");
                 i++;
                 if (i > 10) break;
             }

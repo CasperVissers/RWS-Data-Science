@@ -12,6 +12,10 @@ namespace Water_Pump_Tanzania
             {
                 property.SetValue(this, property.GetValue(waterPumpLabels, null), null);
             }
+            foreach (PropertyInfo property in typeof(IWaterPumpId).GetProperties())
+            {
+                property.SetValue(this, property.GetValue(waterPumpLabels, null), null);
+            }
             var waterPumpSet = waterPumpSets.Where(pump => pump.Id == waterPumpLabels.Id).FirstOrDefault();
             if (waterPumpSet != null)
             {
