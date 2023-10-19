@@ -49,7 +49,7 @@ namespace Water_Pump_Tanzania
         [Name("scheme_name")]
         public string? SchemeName { get;  set; }
         [Name("permit")]
-        public bool Permit { get;  set; }
+        public bool? Permit { get;  set; }
         [Name("construction_year")]
         public int ConstructionYear { get;  set; }
         [Name("extraction_type")]

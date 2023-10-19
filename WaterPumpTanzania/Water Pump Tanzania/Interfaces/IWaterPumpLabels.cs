@@ -89,7 +89,7 @@ namespace Water_Pump_Tanzania.Interfaces
         /// <summary>
         /// If the waterpoint is permitted
         /// </summary>
-        public bool Permit { get; set; }
+        public bool? Permit { get; set; }
         /// <summary>
         /// Year the waterpoint was constructed
         /// </summary>
