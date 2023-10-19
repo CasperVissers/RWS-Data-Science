@@ -5,7 +5,7 @@ namespace Water_Pump_Tanzania
 {
     internal class WaterPumpStatusData : IWaterPump, IWaterPumpStatus
     {
-        public WaterPumpStatusData(IWaterPump waterPumpLabels, IList<IWaterPumpStatus> waterPumpSets)
+        public WaterPumpStatusData(IWaterPump waterPumpLabels, List<WaterPumpStatus> waterPumpSets)
         {
             // Copy properties
             foreach (PropertyInfo property in typeof(IWaterPump).GetProperties())
