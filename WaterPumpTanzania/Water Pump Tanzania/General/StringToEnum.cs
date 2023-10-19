@@ -13,8 +13,9 @@
             };
         }
 
-        public static Waterpoint ToWaterpoint(string value)
+        public static Waterpoint ToWaterpoint(string? value)
         {
+            if (value == null) return Waterpoint.Unknown;
             return value.ToLower() switch
             {
                 "communal standpipe" => Waterpoint.CommunalStandpipe,
@@ -27,8 +28,9 @@
             };
         }
 
-        public static SourceClass ToSourceClass(string value)
+        public static SourceClass ToSourceClass(string? value)
         {
+            if (value == null) return SourceClass.Unknown;
             return value.ToLower() switch
             {
                 "groundwater" => SourceClass.Groundwater,
@@ -37,8 +39,9 @@
             };
         }
 
-        public static Source ToSource(string value)
+        public static Source ToSource(string? value)
         {
+            if (value == null) return Source.Unknown;
             return value.ToLower() switch
             {
                 "spring" => Source.Spring,
@@ -56,8 +59,9 @@
             };
         }
 
-        public static Quantity ToQuantity(string value)
+        public static Quantity ToQuantity(string? value)
         {
+            if (value == null) return Quantity.Unknown;
             return value.ToLower() switch
             {
                 "enough" => Quantity.Enough,
@@ -67,8 +71,9 @@
                 _ => Quantity.Unknown
             };
         }
-        public static Quality ToQuality(string value)
+        public static Quality ToQuality(string? value)
         {
+            if (value == null) return Quality.Unknown;
             return value.ToLower() switch
             {
                 "good" => Quality.Good,
@@ -80,8 +85,9 @@
             };
         }
 
-        public static WaterQuality ToWaterQuality(string value)
+        public static WaterQuality ToWaterQuality(string? value)
         {
+            if (value == null) return WaterQuality.Unknown;
             return value.ToLower() switch
             {
                 "soft" => WaterQuality.Soft,
@@ -95,8 +101,9 @@
             };
         }
 
-        public static PaymentType ToPaymentType(string value)
+        public static PaymentType ToPaymentType(string? value)
         {
+            if (value == null) return PaymentType.Unknown;
             return value.ToLower() switch
             {
                 "annually" => PaymentType.Annually,
@@ -109,8 +116,9 @@
             };
         }
 
-        public static Payment ToPayment(string value)
+        public static Payment ToPayment(string? value)
         {
+            if (value == null) return Payment.Unknown;
             return value.ToLower() switch
             {
                 "pay annually" => Payment.PayAnnually,
@@ -123,8 +131,22 @@
             };
         }
 
-        public static Management ToManagement(string value)
+        public static ManagementGroup ToManagementGroup(string? value)
         {
+            if (value == null) return ManagementGroup.Unknown;
+            return value.ToLower() switch
+            {
+                "user-group" => ManagementGroup.UserGroup,
+                "commercial" => ManagementGroup.Commercial,
+                "parastatal" => ManagementGroup.Parastatal,
+                "other" => ManagementGroup.Other,
+                _ => ManagementGroup.Unknown
+            };
+        }
+       
+        public static Management ToManagement(string? value)
+        {
+            if (value == null) return Management.Unknown;
             return value.ToLower() switch
             {
                 "vwc" => Management.VWC,
@@ -144,8 +166,9 @@
             };
         }
 
-        public static Extraction ToExtraction(string value)
+        public static Extraction ToExtraction(string? value)
         {
+            if (value == null) return Extraction.Unknown;
             return value.ToLower() switch
             {
                 "gravity" => Extraction.Gravity,
@@ -175,8 +198,9 @@
             };
         }
 
-        public static Basin ToBasin(string value)
+        public static Basin ToBasin(string? value)
         {
+            if (value == null) return Basin.Unknown;
             return value.ToLower() switch
             {
                 "lake nyasa" => Basin.LakeNyasa,

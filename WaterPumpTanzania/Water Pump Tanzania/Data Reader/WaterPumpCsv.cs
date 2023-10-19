@@ -39,7 +39,5 @@ namespace Water_Pump_Tanzania.Data_Reader
                 csvWriter.WriteRecord(new WaterPump(r, waterPumpSets));
             }
         }
-
-
     }
 }

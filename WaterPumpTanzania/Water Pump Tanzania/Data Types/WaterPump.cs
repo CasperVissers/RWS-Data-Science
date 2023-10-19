@@ -9,11 +9,11 @@ namespace Water_Pump_Tanzania
         public WaterPump(IWaterPumpLabels waterPumpLabels, List<WaterPumpSet> waterPumpSets)
         {
             // Copy properties
-            foreach (PropertyInfo property in typeof(IWaterPumpLabels).GetProperties())
+            foreach (PropertyInfo property in typeof(IWaterPumpLabels).GetProperties().Where(p => p.CanWrite))
             {
                 property.SetValue(this, property.GetValue(waterPumpLabels, null), null);
             }
-            foreach (PropertyInfo property in typeof(IWaterPumpId).GetProperties())
+            foreach (PropertyInfo property in typeof(IWaterPumpId).GetProperties().Where(p => p.CanWrite))
             {
                 property.SetValue(this, property.GetValue(waterPumpLabels, null), null);
             }
@@ -45,7 +45,7 @@ namespace Water_Pump_Tanzania
         [Name("num_private")]
         public int NumPrivate { get; set; }
         [Name("basin")]
-        public string? Basin { get; set; }
+        public Basin Basin { get; set; }
         [Name("subvillage")]
         public string? Subvillage { get; set; }
         [Name("region")]
@@ -73,37 +73,37 @@ namespace Water_Pump_Tanzania
         [Name("construction_year")]
         public int ConstructionYear { get; set; }
         [Name("extraction_type")]
-        public string? ExtractionType { get; set; }
+        public Extraction ExtractionType { get; set; }
         [Name("extraction_type_group")]
-        public string? ExtractionTypeGroup { get; set; }
+        public Extraction ExtractionTypeGroup { get; set; }
         [Name("extraction_type_class")]
-        public string? ExtractionTypeClass { get; set; }
+        public Extraction ExtractionTypeClass { get; set; }
         [Name("management")]
-        public string? Management { get; set; }
+        public Management Management { get; set; }
         [Name("management_group")]
-        public string? ManagementGroup { get; set; }
+        public ManagementGroup ManagementGroup { get; set; }
         [Name("payment")]
-        public string? Payment { get; set; }
+        public Payment Payment { get; set; }
         [Name("payment_type")]
-        public string? PaymentType { get; set; }
+        public PaymentType PaymentType { get; set; }
         [Name("water_quality")]
-        public string? WaterQuality { get; set; }
+        public WaterQuality WaterQuality { get; set; }
         [Name("quality_group")]
-        public string? QualityGroup { get; set; }
+        public Quality QualityGroup { get; set; }
         [Name("quantity")]
-        public string? Quantity { get; set; }
+        public Quantity Quantity { get; set; }
         [Name("quantity_group")]
-        public string? QuantityGroup { get; set; }
+        public Quantity QuantityGroup { get; set; }
         [Name("source")]
-        public string? Source { get; set; }
+        public Source Source { get; set; }
         [Name("source_type")]
-        public string? SourceType { get; set; }
+        public Source SourceType { get; set; }
         [Name("source_class")]
-        public string? SourceClass { get; set; }
+        public SourceClass SourceClass { get; set; }
         [Name("waterpoint_type")]
-        public string? WaterpointType { get; set; }
+        public Waterpoint WaterpointType { get; set; }
         [Name("waterpoint_type_group")]
-        public string? WaterpointTypeGroup { get; set; }
+        public Waterpoint WaterpointTypeGroup { get; set; }
         [Name("status_group")]
         public string? StatusGroup { get; set; }
     }
