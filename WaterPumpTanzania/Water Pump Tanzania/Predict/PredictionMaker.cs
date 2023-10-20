@@ -41,14 +41,20 @@ namespace Water_Pump_Tanzania.Predict
         /// <summary>
         /// Predict for a number of waterpumps the year when repairs are required.
         /// </summary>
-        public static void PredictMaintenanceYearForAllWaterpumps(float repairTreshhold = 0.1f, int yearsToPredict = 20, float populationGrowth = 1.01f, float staticHeadGrowth = 0.9f)
+        public static void PredictMaintenanceYearForAllWaterpumps(int fromId, int toId, float repairTreshhold = 0.1f, int yearsToPredict = 20, float populationGrowth = 1.01f, float staticHeadGrowth = 0.9f)
         {
-            for (int id = 0; id < 1000; id++)
+            Console.Clear();
+            Console.WriteLine($"Prediction repair year for waterpumps {fromId} to {toId}." +
+                $"Repair is needed when the model predicts a \"need repair\" of {repairTreshhold * 100:F2}%." +
+                $"Prediction model runs untill the year {CURRENT_YEAR + yearsToPredict}." +
+                $"The yearly population growth factor is {populationGrowth:F2} and yearly the static head growth factor is {staticHeadGrowth:F2}.\n");
+
+            for (int id = fromId; id < toId; id++)
             {
                 try
                 {
                     CheckCurrentStateBeforePrediction(id,
-                                                      () => DisplayFailurePrediction(GetPredictionWhereTrheshholdIsReached(MakePredictionInTheFuture(PredictHelper.MapToInputModel(WaterPumpCsv.GetWaterPumpLabelById(id)), yearsToPredict, populationGrowth, staticHeadGrowth), repairTreshhold)),
+                                                      () => DisplayRepairPrediction(GetPredictionWhereTrheshholdIsReached(MakePredictionInTheFuture(PredictHelper.MapToInputModel(WaterPumpCsv.GetWaterPumpLabelById(id)), yearsToPredict, populationGrowth, staticHeadGrowth), repairTreshhold)),
                                                       () => Console.WriteLine($"Waterpump {id} is not functional."),
                                                       () => Console.WriteLine($"Waterpump {id} needs repairs right now."),
                                                       false);
@@ -134,7 +140,10 @@ namespace Water_Pump_Tanzania.Predict
             return new Prediction(predictions.First().Id, -1, predictions.Last().Scores);
         }
 
-        private static void DisplayFailurePrediction(Prediction prediction)
+        /// <summary>
+        /// Display the expected repair prediction.
+        /// </summary>
+        private static void DisplayRepairPrediction(Prediction prediction)
         {
             if (prediction.Year == -1)
             {
@@ -142,7 +151,7 @@ namespace Water_Pump_Tanzania.Predict
             }
             else
             {
-                Console.WriteLine($"Waterpump {prediction.Id} needs repairs in the year {prediction.Year} ({prediction.Scores[IndexOfRepair]*100:F2}%).");
+                Console.WriteLine($"Waterpump {prediction.Id} is expected to need repairs in the year {prediction.Year} ({prediction.Scores[IndexOfRepair]*100:F2}%).");
             }    
         }
     }
