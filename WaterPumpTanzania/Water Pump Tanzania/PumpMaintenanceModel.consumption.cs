@@ -203,7 +203,7 @@ namespace Water_Pump_Tanzania
             public float Population { get; set; }
 
             [ColumnName(@"public_meeting")]
-            public float Public_meeting { get; set; }
+            public bool Public_meeting { get; set; }
 
             [ColumnName(@"recorded_by")]
             public string Recorded_by { get; set; }

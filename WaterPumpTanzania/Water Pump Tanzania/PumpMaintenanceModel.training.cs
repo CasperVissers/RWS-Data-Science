@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ML.Data;
-using Microsoft.ML.Trainers.LightGbm;
+using Microsoft.ML.Trainers.FastTree;
 using Microsoft.ML.Trainers;
 using Microsoft.ML.Transforms;
 using Microsoft.ML;
@@ -38,10 +38,10 @@ namespace Water_Pump_Tanzania
             // Data process configuration with pipeline data transformations
             var pipeline = mlContext.Transforms.Categorical.OneHotEncoding(new []{new InputOutputColumnPair(@"basin", @"basin"),new InputOutputColumnPair(@"extraction_type_class", @"extraction_type_class"),new InputOutputColumnPair(@"management", @"management"),new InputOutputColumnPair(@"water_quality", @"water_quality"),new InputOutputColumnPair(@"quantity_group", @"quantity_group"),new InputOutputColumnPair(@"source_type", @"source_type"),new InputOutputColumnPair(@"waterpoint_type_group", @"waterpoint_type_group")}, outputKind: OneHotEncodingEstimator.OutputKind.Indicator)      
                                     .Append(mlContext.Transforms.ReplaceMissingValues(new []{new InputOutputColumnPair(@"amount_tsh", @"amount_tsh"),new InputOutputColumnPair(@"gps_height", @"gps_height"),new InputOutputColumnPair(@"population", @"population"),new InputOutputColumnPair(@"construction_year", @"construction_year")}))      
-                                    .Append(mlContext.Transforms.Conversion.ConvertType(new []{new InputOutputColumnPair(@"public_meeting", @"public_meeting"),new InputOutputColumnPair(@"permit", @"permit")}))      
-                                    .Append(mlContext.Transforms.Concatenate(@"Features", new []{@"basin",@"extraction_type_class",@"management",@"water_quality",@"quantity_group",@"source_type",@"waterpoint_type_group",@"amount_tsh",@"gps_height",@"population",@"construction_year",@"public_meeting",@"permit"}))      
+                                    .Append(mlContext.Transforms.Conversion.ConvertType(@"permit", @"permit"))      
+                                    .Append(mlContext.Transforms.Concatenate(@"Features", new []{@"basin",@"extraction_type_class",@"management",@"water_quality",@"quantity_group",@"source_type",@"waterpoint_type_group",@"amount_tsh",@"gps_height",@"population",@"construction_year",@"permit"}))      
                                     .Append(mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"status_group",inputColumnName:@"status_group"))      
-                                    .Append(mlContext.MulticlassClassification.Trainers.LightGbm(new LightGbmMulticlassTrainer.Options(){NumberOfLeaves=46,NumberOfIterations=4,MinimumExampleCountPerLeaf=24,LearningRate=0.999999776672986,LabelColumnName=@"status_group",FeatureColumnName=@"Features",ExampleWeightColumnName=null,Booster=new GradientBooster.Options(){SubsampleFraction=0.999999776672986,FeatureFraction=0.845977111322255,L1Regularization=7.15194975421783E-10,L2Regularization=0.999999776672986},MaximumBinCountPerFeature=86}))      
+                                    .Append(mlContext.MulticlassClassification.Trainers.OneVersusAll(binaryEstimator:mlContext.BinaryClassification.Trainers.FastTree(new FastTreeBinaryTrainer.Options(){NumberOfLeaves=6,MinimumExampleCountPerLeaf=7,NumberOfTrees=6,MaximumBinCountPerFeature=74,FeatureFraction=0.6808350800623,LearningRate=0.999999776672986,LabelColumnName=@"status_group",FeatureColumnName=@"Features"}),labelColumnName: @"status_group"))      
                                     .Append(mlContext.Transforms.Conversion.MapKeyToValue(outputColumnName:@"PredictedLabel",inputColumnName:@"PredictedLabel"));
 
             return pipeline;
