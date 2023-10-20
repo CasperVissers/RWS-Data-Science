@@ -15,35 +15,34 @@ namespace Water_Pump_Tanzania.Predict
         /// </summary>
         public static void PredictFailure(int waterpumpId, int yearsToPredict = 20, float populationGrowth = 1.01f, float staticHeadGrowth = 0.9f)
         {
+            CheckCurrentStateBeforePrediction(waterpumpId,
+                                              () => MakePredictionInTheFuture(PredictHelper.MapToInputModel(WaterPumpCsv.GetWaterPumpLabelById(waterpumpId)), yearsToPredict, populationGrowth, staticHeadGrowth),
+                                              null,
+                                              null);
+        }
+
+        public static void PredictMaintenanceYear(float repairTreshhold = 0.1f, int yearsToPredict = 20, float populationGrowth = 1.01f, float staticHeadGrowth = 0.9f)
+        {
+
+        }
+
+        private static void CheckCurrentStateBeforePrediction(int waterpumpId, Action? OnFunctional, Action? OnNonFunctional, Action? OnRepair)
+        {
             switch (WaterPumpCsv.GetWaterPumpStatus(waterpumpId))
             {
                 case Status.Functional:
                     Console.WriteLine($"Waterpump {waterpumpId} is functional at this moment. Predicting when maintenance is required.");
-                    MakePredictionInTheFuture(PredictHelper.MapToInputModel(GetWaterpump(waterpumpId)), yearsToPredict, populationGrowth, staticHeadGrowth);
+                    OnFunctional?.Invoke();
                     return;
                 case Status.NonFunctional:
                     Console.WriteLine($"Waterpump {waterpumpId} is not functional at this moment.");
+                    OnNonFunctional?.Invoke();
                     return;
                 case Status.NeedsRepair:
                     Console.WriteLine($"Waterpump {waterpumpId} needs repair at this moment.");
+                    OnRepair?.Invoke();
                     return;
             }
-        }
-
-        /// <summary>
-        /// Gets the waterpump data of a given waterpump with an id.
-        /// </summary>
-        private static WaterPumpLabels GetWaterpump(int waterpumpId)
-        {
-            try
-            {
-                return WaterPumpCsv.GetWaterPumpLabelById(waterpumpId);
-            }
-            catch
-            {
-                Console.WriteLine($"Waterpump with ID {waterpumpId} is unknown.");
-            }
-            return null;
         }
 
         /// <summary>
