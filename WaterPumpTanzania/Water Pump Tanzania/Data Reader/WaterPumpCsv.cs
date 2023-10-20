@@ -45,12 +45,18 @@ namespace Water_Pump_Tanzania.Data_Reader
             // output
             foreach (var r in records)
             {
+                // Check for incomplete data
                 if (HasUnknownData(r)) continue;
                 if (HasZeroData(r)) continue;
                 if (HasNullOrEmptyStringData(r)) continue;
 
+                /// Check for non functional pump
+                var waterpump = new WaterPump(r);
+                if (IsNonfunctionalWaterpump(waterpump)) continue;
+
+                // Write to output
                 csvWriter.NextRecord();
-                csvWriter.WriteRecord(new WaterPump(r));
+                csvWriter.WriteRecord(waterpump);
             }
         }
 
@@ -112,6 +118,15 @@ namespace Water_Pump_Tanzania.Data_Reader
             //if (string.IsNullOrEmpty(labels.SchemeManagement)) return true;
             //if (string.IsNullOrEmpty(labels.SchemeName)) return true;
             return false;
+        }
+
+        /// <summary>
+        /// Check wheter the waterpump is nonfunctional.
+        /// </summary>
+        /// <returns>True if the pump is non funcitonal</returns>
+        public static bool IsNonfunctionalWaterpump(IWaterPumpSet labels)
+        {
+            return labels.StatusGroup == Status.NonFunctional;
         }
 
         /// <summary>

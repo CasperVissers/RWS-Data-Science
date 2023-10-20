@@ -13,7 +13,7 @@ namespace Water_Pump_Tanzania.Predict
         /// <summary>
         /// Predict a failure for a given waterpump.
         /// </summary>
-        public static void PredictFailure(int waterpumpId, int yearsToPredict = 10, float populationGrowth = 1.01f, float staticHeadGrowth = 0.9f)
+        public static void PredictFailure(int waterpumpId, int yearsToPredict = 20, float populationGrowth = 1.01f, float staticHeadGrowth = 0.9f)
         {
             switch (WaterPumpCsv.GetWaterPumpStatus(waterpumpId))
             {
@@ -68,9 +68,10 @@ namespace Water_Pump_Tanzania.Predict
         private static void DisplayPrediction(int year, float[] Scores)
         {
             Console.WriteLine($"Prediction for year {year}:");
-            Console.WriteLine($"{PredictHelper.Labels[0],-15}{Scores[0]:F2}");
-            Console.WriteLine($"{PredictHelper.Labels[1],-15}{Scores[1]:F2}");
-            Console.WriteLine($"{PredictHelper.Labels[2],-15}{Scores[2]:F2}");
+            for(int i = 0; i < Scores.Length; i++)
+            {
+                Console.WriteLine($"{PredictHelper.Labels[i],-15}{Scores[i]:F2}");
+            }
             Console.WriteLine();
         }
     }

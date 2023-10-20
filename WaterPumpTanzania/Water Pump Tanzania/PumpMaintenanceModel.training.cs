@@ -41,7 +41,7 @@ namespace Water_Pump_Tanzania
                                     .Append(mlContext.Transforms.Conversion.ConvertType(new []{new InputOutputColumnPair(@"public_meeting", @"public_meeting"),new InputOutputColumnPair(@"permit", @"permit")}))      
                                     .Append(mlContext.Transforms.Concatenate(@"Features", new []{@"basin",@"extraction_type_class",@"management_group",@"water_quality",@"quantity_group",@"source_type",@"waterpoint_type_group",@"amount_tsh",@"gps_height",@"population",@"construction_year",@"public_meeting",@"permit"}))      
                                     .Append(mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"status_group",inputColumnName:@"status_group"))      
-                                    .Append(mlContext.MulticlassClassification.Trainers.OneVersusAll(binaryEstimator:mlContext.BinaryClassification.Trainers.FastTree(new FastTreeBinaryTrainer.Options(){NumberOfLeaves=16,MinimumExampleCountPerLeaf=32,NumberOfTrees=285,MaximumBinCountPerFeature=48,FeatureFraction=0.832715250739876,LearningRate=0.999999776672986,LabelColumnName=@"status_group",FeatureColumnName=@"Features"}),labelColumnName: @"status_group"))      
+                                    .Append(mlContext.MulticlassClassification.Trainers.OneVersusAll(binaryEstimator:mlContext.BinaryClassification.Trainers.FastForest(new FastForestBinaryTrainer.Options(){NumberOfTrees=4,NumberOfLeaves=72,FeatureFraction=0.8332055F,LabelColumnName=@"status_group",FeatureColumnName=@"Features"}),labelColumnName:@"status_group"))      
                                     .Append(mlContext.Transforms.Conversion.MapKeyToValue(outputColumnName:@"PredictedLabel",inputColumnName:@"PredictedLabel"));
 
             return pipeline;
