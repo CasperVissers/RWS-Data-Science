@@ -53,6 +53,19 @@ namespace Water_Pump_Tanzania.Predict
         }
 
         /// <summary>
+        /// Finds the index of the score labels for a specific status.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static int GetIndexOfStatusLabel(Status statusForIndex)
+        {
+            for(int i = 0; i < Labels.Length; i++)
+            {
+                if (Labels[i] == statusForIndex) return i;
+            }
+            throw new ArgumentOutOfRangeException($"Cannot find {statusForIndex} as index");
+        }
+
+        /// <summary>
         /// Maps the pump data to an input model.
         /// </summary>
         public static PumpMaintenanceModel.ModelInput MapToInputModel(IWaterPumpLabels labels)

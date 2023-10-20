@@ -16,7 +16,8 @@ namespace Water_Pump_Tanzania.Programs
             Console.Clear();
             Console.WriteLine("Starting prediction program...");
 
-            MakePrediction();
+            //MakePrediction();
+            PredictRepairYear();
 
             Console.WriteLine("Finished prediction program! Press enter to continue.");
             Console.ReadLine();
@@ -34,11 +35,23 @@ namespace Water_Pump_Tanzania.Programs
                 }
                 catch (KeyNotFoundException ex)
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine(ex.Message);
                     MakePrediction();
                 }
             }
             
+        }
+
+        private static void PredictRepairYear()
+        {
+            try
+            {
+                PredictionMaker.PredictMaintenanceYearForAllWaterpumps();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
     }
