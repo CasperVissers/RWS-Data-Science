@@ -1,6 +1,4 @@
-﻿using CsvHelper;
-using System.Globalization;
-using Water_Pump_Tanzania.Programs;
+﻿using Water_Pump_Tanzania.Programs;
 
 namespace Water_Pump_Tanzania
 {

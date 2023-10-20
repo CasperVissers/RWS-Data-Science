@@ -1,9 +1,4 @@
 ﻿using Microsoft.ML.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Water_Pump_Tanzania.Interfaces;
 
 namespace Water_Pump_Tanzania.Predict

@@ -1,10 +1,5 @@
 ﻿using CsvHelper;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Water_Pump_Tanzania.Interfaces;
 
 namespace Water_Pump_Tanzania.Data_Reader

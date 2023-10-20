@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Water_Pump_Tanzania.Data_Reader;
-using Water_Pump_Tanzania.Interfaces;
-using static System.Formats.Asn1.AsnWriter;
+﻿using Water_Pump_Tanzania.Data_Reader;
 
 namespace Water_Pump_Tanzania.Predict
 {

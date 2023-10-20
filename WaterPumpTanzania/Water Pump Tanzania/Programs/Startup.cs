@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Water_Pump_Tanzania.Programs
+﻿namespace Water_Pump_Tanzania.Programs
 {
     internal static class Startup
     {

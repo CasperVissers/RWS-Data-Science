@@ -1,12 +1,5 @@
-﻿using Microsoft.ML.Data;
-using Microsoft.ML;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using Water_Pump_Tanzania.Predict;
-using System.Globalization;
 
 namespace Water_Pump_Tanzania.Programs
 {
