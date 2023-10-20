@@ -13,6 +13,20 @@ namespace Water_Pump_Tanzania.Predict
     {
         private const int CURRENT_YEAR = 2023;
 
+        public static int IndexOfRepair
+        {
+            get
+            {
+                if (_indexOfRepair== -1)
+                {
+                    _indexOfRepair = PredictHelper.GetIndexOfStatusLabel(Status.NeedsRepair);
+                }
+                return _indexOfRepair;
+            }
+        }
+        private static int _indexOfRepair = -1;
+
+
         /// <summary>
         /// Predict a failure for a given waterpump.
         /// </summary>
@@ -35,8 +49,9 @@ namespace Water_Pump_Tanzania.Predict
                 {
                     CheckCurrentStateBeforePrediction(id,
                                                       () => DisplayFailurePrediction(GetPredictionWhereTrheshholdIsReached(MakePredictionInTheFuture(PredictHelper.MapToInputModel(WaterPumpCsv.GetWaterPumpLabelById(id)), yearsToPredict, populationGrowth, staticHeadGrowth), repairTreshhold)),
-                                                      null,
-                                                      null);
+                                                      () => Console.WriteLine($"Waterpump {id} is not functional."),
+                                                      () => Console.WriteLine($"Waterpump {id} needs repairs right now."),
+                                                      false);
                 }
                 catch { }
             }
@@ -49,20 +64,20 @@ namespace Water_Pump_Tanzania.Predict
         /// <param name="OnFunctional">What to do when the status is Functional</param>
         /// <param name="OnNonFunctional">What to do when the status is Non Functional</param>
         /// <param name="OnRepair">What to do when the status is Needs Repair</param>
-        private static void CheckCurrentStateBeforePrediction(int waterpumpId, Action? OnFunctional, Action? OnNonFunctional, Action? OnRepair)
+        private static void CheckCurrentStateBeforePrediction(int waterpumpId, Action? OnFunctional, Action? OnNonFunctional, Action? OnRepair, bool displayMsg = true)
         {
             switch (WaterPumpCsv.GetWaterPumpStatus(waterpumpId))
             {
                 case Status.Functional:
-                    Console.WriteLine($"Waterpump {waterpumpId} is functional at this moment. Predicting when repairs are required.");
+                    if (displayMsg) Console.WriteLine($"Waterpump {waterpumpId} is functional at this moment. Predicting when repairs are required.");
                     OnFunctional?.Invoke();
                     return;
                 case Status.NonFunctional:
-                    Console.WriteLine($"Waterpump {waterpumpId} is not functional at this moment.");
+                    if (displayMsg) Console.WriteLine($"Waterpump {waterpumpId} is not functional at this moment.");
                     OnNonFunctional?.Invoke();
                     return;
                 case Status.NeedsRepair:
-                    Console.WriteLine($"Waterpump {waterpumpId} needs repair at this moment.");
+                    if (displayMsg) Console.WriteLine($"Waterpump {waterpumpId} needs repair at this moment.");
                     OnRepair?.Invoke();
                     return;
             }
@@ -74,15 +89,16 @@ namespace Water_Pump_Tanzania.Predict
         private static List<Prediction> MakePredictionInTheFuture(PumpMaintenanceModel.ModelInput inputModel, int yearsToPredict, float populationGrowth, float staticHeadGrowth)
         {
             var predictions = new List<Prediction>();
-            for (int y = 0, year = CURRENT_YEAR; y <= yearsToPredict; y++, year++)
+            for (int y = 0, year = CURRENT_YEAR + 1; y < yearsToPredict; y++, year++)
             {
-                var result = PumpMaintenanceModel.Predict(inputModel);
-                predictions.Add(new ((int) inputModel.Id, year, result.Score));
-
                 // Change year parameters
                 inputModel.Construction_year--;
                 inputModel.Amount_tsh *= staticHeadGrowth;
                 inputModel.Population *= populationGrowth;
+
+                // Make a prediction
+                var result = PumpMaintenanceModel.Predict(inputModel);
+                predictions.Add(new((int)inputModel.Id, year, result.Score));
             }
             return predictions;
         }
@@ -111,10 +127,9 @@ namespace Water_Pump_Tanzania.Predict
         /// prediction with the year -1 if the treshhold is not reached.</returns>
         private static Prediction GetPredictionWhereTrheshholdIsReached(List<Prediction> predictions, float threshhold)
         {
-            var index = PredictHelper.GetIndexOfStatusLabel(Status.NeedsRepair);
             foreach(var prediction in predictions)
             {
-                if (prediction.Scores[index] > threshhold) return prediction;
+                if (prediction.Scores[IndexOfRepair] > threshhold) return prediction;
             }
             return new Prediction(predictions.First().Id, -1, predictions.Last().Scores);
         }
@@ -127,7 +142,7 @@ namespace Water_Pump_Tanzania.Predict
             }
             else
             {
-                Console.WriteLine($"Waterpump {prediction.Id} needs repairs in the year {prediction.Year}.");
+                Console.WriteLine($"Waterpump {prediction.Id} needs repairs in the year {prediction.Year} ({prediction.Scores[IndexOfRepair]*100:F2}%).");
             }    
         }
     }
