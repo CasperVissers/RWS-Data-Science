@@ -48,8 +48,8 @@ namespace Water_Pump_Tanzania.Predict
                 {
                     CheckCurrentStateBeforePrediction(id,
                                                       () => DisplayRepairPrediction(GetPredictionWhereTrheshholdIsReached(MakePredictionInTheFuture(PredictHelper.MapToInputModel(WaterPumpCsv.GetWaterPumpLabelById(id)), yearsToPredict, populationGrowth, staticHeadGrowth), repairTreshhold)),
-                                                      () => Console.WriteLine($"Waterpump {id} is not functional."),
-                                                      () => Console.WriteLine($"Waterpump {id} needs repairs right now."),
+                                                      () => Console.WriteLine($"Waterpump {id} is not functional right now!"),
+                                                      () => Console.WriteLine($"Waterpump {id} needs repairs right now!"),
                                                       false);
                 }
                 catch { }
@@ -72,11 +72,11 @@ namespace Water_Pump_Tanzania.Predict
                     OnFunctional?.Invoke();
                     return;
                 case Status.NonFunctional:
-                    if (displayMsg) Console.WriteLine($"Waterpump {waterpumpId} is not functional at this moment.");
+                    if (displayMsg) Console.WriteLine($"Waterpump {waterpumpId} is not functional right now!");
                     OnNonFunctional?.Invoke();
                     return;
                 case Status.NeedsRepair:
-                    if (displayMsg) Console.WriteLine($"Waterpump {waterpumpId} needs repair at this moment.");
+                    if (displayMsg) Console.WriteLine($"Waterpump {waterpumpId} needs repairs right now!");
                     OnRepair?.Invoke();
                     return;
             }
