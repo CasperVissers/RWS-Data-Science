@@ -70,8 +70,8 @@ namespace Water_Pump_Tanzania.Data_Reader
             //if (labels.ExtractionType == Extraction.Unknown) return true;
             //if (labels.ExtractionTypeGroup == Extraction.Unknown) return true;
             if (labels.ExtractionTypeClass == Extraction.Unknown) return true;
-            //if (labels.Management == Management.Unknown) return true;
-            if (labels.ManagementGroup == ManagementGroup.Unknown) return true;
+            if (labels.Management == Management.Unknown) return true;
+            //if (labels.ManagementGroup == ManagementGroup.Unknown) return true;
             //if (labels.Payment == Payment.Unknown) return true;
             //if (labels.PaymentType == PaymentType.Unknown) return true;
             if (labels.WaterQuality == WaterQuality.Unknown) return true;

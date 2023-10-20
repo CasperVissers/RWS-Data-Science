@@ -230,10 +230,10 @@ namespace Water_Pump_Tanzania
             public float[] Extraction_type_class { get; set; }
 
             [ColumnName(@"management")]
-            public string Management { get; set; }
+            public float[] Management { get; set; }
 
             [ColumnName(@"management_group")]
-            public float[] Management_group { get; set; }
+            public string Management_group { get; set; }
 
             [ColumnName(@"payment")]
             public string Payment { get; set; }
