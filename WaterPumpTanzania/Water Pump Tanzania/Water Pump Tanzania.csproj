@@ -12,9 +12,6 @@
     <PackageReference Include="Microsoft.ML.FastTree" Version="1.7.1" />
     <PackageReference Include="Microsoft.ML.LightGbm" Version="1.7.1" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="_files\" />
-  </ItemGroup>
   <ItemGroup Label="PumpMaintenanceModel">
     <None Include="PumpMaintenanceModel.consumption.cs">
       <DependentUpon>PumpMaintenanceModel.mbconfig</DependentUpon>
@@ -24,6 +21,14 @@
     </None>
     <None Include="PumpMaintenanceModel.zip">
       <DependentUpon>PumpMaintenanceModel.mbconfig</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="_files\data_scientist\water_pump_labels.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="_files\data_scientist\water_pump_set.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
