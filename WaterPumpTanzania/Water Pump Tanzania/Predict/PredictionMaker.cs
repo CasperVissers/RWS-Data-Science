@@ -34,11 +34,11 @@ namespace Water_Pump_Tanzania.Predict
         /// <summary>
         /// Predict for a number of waterpumps the year when repairs are required.
         /// </summary>
-        public static void PredictMaintenanceYearForAllWaterpumps(int fromId, int toId, float repairTreshhold = 0.1f, int yearsToPredict = 20, float populationGrowth = 1.01f, float staticHeadGrowth = 0.9f)
+        public static void PredictMaintenanceYearForAllWaterpumps(int fromId, int toId, float repairthreshold = 0.1f, int yearsToPredict = 20, float populationGrowth = 1.01f, float staticHeadGrowth = 0.9f)
         {
             Console.Clear();
-            Console.WriteLine($"Prediction repair year for waterpumps {fromId} to {toId}." +
-                $"Repair is needed when the model predicts a \"need repair\" of {repairTreshhold * 100:F2}%." +
+            Console.WriteLine($"Predicting repair year for waterpumps {fromId} to {toId}." +
+                $"Repair is needed when the model predicts a \"need repair\" of {repairthreshold * 100:F2}%." +
                 $"Prediction model runs untill the year {CURRENT_YEAR + yearsToPredict}." +
                 $"The yearly population growth factor is {populationGrowth:F2} and yearly the static head growth factor is {staticHeadGrowth:F2}.\n");
 
@@ -47,7 +47,7 @@ namespace Water_Pump_Tanzania.Predict
                 try
                 {
                     CheckCurrentStateBeforePrediction(id,
-                                                      () => DisplayRepairPrediction(GetPredictionWhereTrheshholdIsReached(MakePredictionInTheFuture(PredictHelper.MapToInputModel(WaterPumpCsv.GetWaterPumpLabelById(id)), yearsToPredict, populationGrowth, staticHeadGrowth), repairTreshhold)),
+                                                      () => DisplayRepairPrediction(GetPredictionWhereTrheshholdIsReached(MakePredictionInTheFuture(PredictHelper.MapToInputModel(WaterPumpCsv.GetWaterPumpLabelById(id)), yearsToPredict, populationGrowth, staticHeadGrowth), repairthreshold)),
                                                       () => Console.WriteLine($"Waterpump {id} is not functional right now!"),
                                                       () => Console.WriteLine($"Waterpump {id} needs repairs right now!"),
                                                       false);
@@ -119,16 +119,16 @@ namespace Water_Pump_Tanzania.Predict
         }
 
         /// <summary>
-        /// Checks if the repair threshhold is reached. If it is, the prediction
+        /// Checks if the repair threshold is reached. If it is, the prediction
         /// of that year is returned.
         /// </summary>
         /// <returns>The prediction where the threshold is reached. Or it returns a 
-        /// prediction with the year -1 if the treshhold is not reached.</returns>
-        private static Prediction GetPredictionWhereTrheshholdIsReached(List<Prediction> predictions, float threshhold)
+        /// prediction with the year -1 if the threshold is not reached.</returns>
+        private static Prediction GetPredictionWhereTrheshholdIsReached(List<Prediction> predictions, float threshold)
         {
             foreach(var prediction in predictions)
             {
-                if (prediction.Scores[IndexOfRepair] > threshhold) return prediction;
+                if (prediction.Scores[IndexOfRepair] > threshold) return prediction;
             }
             return new Prediction(predictions.First().Id, -1, predictions.Last().Scores);
         }

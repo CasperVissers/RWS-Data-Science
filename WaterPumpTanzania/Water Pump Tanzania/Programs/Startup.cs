@@ -14,7 +14,7 @@
         {
             Console.Clear();
             Console.WriteLine("Choice a program to run (enter 0, 1 or 2):");
-            Console.WriteLine($"\t{(int)Programs.Exit}) {Programs.Exit} - To prepair the data.");
+            Console.WriteLine($"\t{(int)Programs.Exit}) {Programs.Exit} - To exit the program.");
             Console.WriteLine($"\t{(int)Programs.Prepair}) {Programs.Prepair} - To prepair the data.");
             Console.WriteLine($"\t{(int)Programs.Predict}) {Programs.Predict} - To make a prediction.");
             switch(Console.ReadLine())

@@ -45,7 +45,7 @@ namespace Water_Pump_Tanzania.Programs
         {
             try
             {
-                int fromId = 0, toId = 100, yearsToPredict = 10; float threshhold = 0.15f, populationGrowth = 1.01f, staticHeadGrowth = 0.9f;
+                int fromId = 0, toId = 100, yearsToPredict = 10; float threshold = 0.15f, populationGrowth = 1.01f, staticHeadGrowth = 0.9f;
                 try
                 {
                     // Get range
@@ -57,9 +57,9 @@ namespace Water_Pump_Tanzania.Programs
                     if (fromId > toId) throw new ArgumentOutOfRangeException();
 
                     // Get treshhold
-                    Console.WriteLine("Enter repair prediction threshhold (e.g. 0.15 -> 15%)");
+                    Console.WriteLine("Enter repair prediction threshold (e.g. 0.15 -> 15%)");
                     input = Console.ReadLine();
-                    threshhold = float.Parse(input, CultureInfo.InvariantCulture);
+                    threshold = float.Parse(input, CultureInfo.InvariantCulture);
 
                     // Get years
                     Console.WriteLine("Enter number of years to predict (e.g. 15)");
@@ -82,7 +82,7 @@ namespace Water_Pump_Tanzania.Programs
                     Console.WriteLine("Invalid input, please try agian.");
                     PredictRepairYear();
                 }
-                PredictionMaker.PredictMaintenanceYearForAllWaterpumps(fromId, toId, threshhold, yearsToPredict, populationGrowth, staticHeadGrowth);
+                PredictionMaker.PredictMaintenanceYearForAllWaterpumps(fromId, toId, threshold, yearsToPredict, populationGrowth, staticHeadGrowth);
             }
             catch (Exception ex)
             {
